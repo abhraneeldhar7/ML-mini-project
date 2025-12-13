@@ -1,7 +1,15 @@
 import { ApplicantData, PredictionResult } from "../types";
 
 export const predictEligibility = async (data: ApplicantData): Promise<PredictionResult> => {
-  const apiKey = process.env.GROQ_API_KEY;
+  // Safe access to env var to prevent ReferenceError in browser
+  let apiKey = '';
+  try {
+    if (typeof process !== 'undefined' && process.env) {
+      apiKey = process.env.GROQ_API_KEY || '';
+    }
+  } catch (e) {
+    console.warn("Could not access process.env", e);
+  }
 
   if (!apiKey) {
     console.warn("No GROQ_API_KEY found. Using mock logic fallback.");

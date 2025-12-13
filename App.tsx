@@ -4,10 +4,10 @@ import { LoanForm } from './components/LoanForm';
 import { PredictionResultView } from './components/PredictionResult';
 import { ApplicantData, PredictionResult } from './types';
 import { DEFAULT_APPLICANT } from './constants';
-import { predictEligibility } from './services/geminiService';
+import { predictEligibility } from './services/groqService';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Custom Metallic Logo Component - Updated for Light Theme visibility
+// Custom Metallic Logo Component
 const Logo = ({ className }: { className?: string }) => (
   <svg 
     viewBox="0 0 100 100" 
@@ -94,8 +94,8 @@ export default function App() {
             <span className="text-lg font-bold tracking-tight text-slate-900">Classifier<span className="text-slate-400 font-medium">Demo</span></span>
           </div>
           <div className="flex items-center gap-6">
-             <a href="https://ai.google.dev/" target="_blank" rel="noreferrer" className="hidden text-sm font-medium text-slate-500 transition-colors hover:text-slate-900 sm:block">
-               Powered by Gemini
+             <a href="https://groq.com/" target="_blank" rel="noreferrer" className="hidden text-sm font-medium text-slate-500 transition-colors hover:text-slate-900 sm:block">
+               Powered by Groq
              </a>
              {view === 'landing' && (
                <button onClick={() => setView('app')} className="text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors">
@@ -148,7 +148,7 @@ export default function App() {
               </div>
 
               <div className="mt-20 border-t border-slate-200 pt-8 text-center text-sm text-slate-400">
-                 <p>Demo Environment v1.0 • Built with Next.js & Gemini</p>
+                 <p>Demo Environment v1.0 • Built with Next.js & Groq</p>
               </div>
             </motion.div>
           )}
