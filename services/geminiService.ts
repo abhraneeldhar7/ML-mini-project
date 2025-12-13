@@ -1,9 +1,16 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { ApplicantData, PredictionResult } from "../types";
-import { MOCK_RESULT_ELIGIBLE, MOCK_RESULT_NOT_ELIGIBLE } from "../constants";
 
 export const predictEligibility = async (data: ApplicantData): Promise<PredictionResult> => {
-  const apiKey = process.env.API_KEY;
+  // Safe access to process.env
+  let apiKey = '';
+  try {
+    if (typeof process !== 'undefined' && process.env) {
+      apiKey = process.env.API_KEY || '';
+    }
+  } catch (e) {
+    console.warn("Could not access process.env", e);
+  }
 
   if (!apiKey) {
     console.warn("No API Key found. Using mock logic fallback.");
@@ -15,7 +22,7 @@ export const predictEligibility = async (data: ApplicantData): Promise<Predictio
   try {
     const ai = new GoogleGenAI({ apiKey });
     
-    // Using Gemini 2.5 Flash for high-speed inference (simulating the "Groq" experience)
+    // Using Gemini 2.5 Flash for high-speed inference
     const model = 'gemini-2.5-flash';
 
     const prompt = `
