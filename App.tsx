@@ -5,7 +5,6 @@ import { PredictionResultView } from './components/PredictionResult';
 import { ApplicantData, PredictionResult } from './types';
 import { DEFAULT_APPLICANT } from './constants';
 import { predictEligibility } from './services/groqService';
-import { motion, AnimatePresence } from 'framer-motion';
 
 // Custom Metallic Logo Component
 const Logo = ({ className }: { className?: string }) => (
@@ -107,23 +106,12 @@ export default function App() {
       </nav>
 
       <main className="pt-16">
-        <AnimatePresence mode="wait">
           {view === 'landing' ? (
-            <motion.div
-              key="landing"
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
               <Hero onStart={() => setView('app')} />
-            </motion.div>
+            </div>
           ) : (
-            <motion.div
-              key="app"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="container mx-auto px-6 py-12"
-            >
+            <div className="container mx-auto px-6 py-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div className="mb-10 flex flex-col gap-2 max-w-3xl">
                 <h2 className="text-3xl font-bold text-slate-900">Loan Eligibility Predictor</h2>
                 <p className="text-slate-500 text-lg">
@@ -150,9 +138,8 @@ export default function App() {
               <div className="mt-20 border-t border-slate-200 pt-8 text-center text-sm text-slate-400">
                  <p>Demo Environment v1.0 • Built with Next.js & Groq</p>
               </div>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
       </main>
     </div>
   );

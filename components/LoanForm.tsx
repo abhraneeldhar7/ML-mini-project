@@ -5,7 +5,6 @@ import { Button } from './ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/Card';
 import { ApplicantData, CreditScoreRange, EmploymentType, LoanTerm, PropertyOwnership } from '../types';
 import { ArrowRight, Calculator } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 interface LoanFormProps {
   data: ApplicantData;
@@ -31,12 +30,8 @@ export const LoanForm: React.FC<LoanFormProps> = ({ data, onChange, onSubmit, is
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <Card className="h-full border-slate-200 bg-white/80 backdrop-blur-sm shadow-md">
+    <div>
+      <Card className="h-full border-slate-200 bg-white/80 backdrop-blur-sm shadow-md transition-all">
         <CardHeader className="border-b border-slate-100 pb-4">
           <CardTitle className="flex items-center gap-2 text-slate-900">
             <Calculator className="h-5 w-5 text-indigo-600" />
@@ -174,6 +169,6 @@ export const LoanForm: React.FC<LoanFormProps> = ({ data, onChange, onSubmit, is
           </div>
         </CardContent>
       </Card>
-    </motion.div>
+    </div>
   );
 };

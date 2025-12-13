@@ -1,27 +1,10 @@
 import React from 'react';
 import { Button } from './ui/Button';
-import { motion, Variants } from 'framer-motion';
 import { ArrowRight, Binary, FileSpreadsheet, GitGraph, Scale, ShieldAlert, BrainCircuit } from 'lucide-react';
 
 interface HeroProps {
   onStart: () => void;
 }
-
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2
-    }
-  }
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-};
 
 export const Hero: React.FC<HeroProps> = ({ onStart }) => {
   return (
@@ -38,47 +21,37 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         <div className="container relative z-10 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           
           {/* Left: Content */}
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="flex flex-col space-y-8 max-w-2xl"
-          >
-             <motion.div variants={itemVariants} className="flex items-center space-x-2">
+          <div className="flex flex-col space-y-8 max-w-2xl">
+             <div className="flex items-center space-x-2">
                 <span className="px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-600 shadow-sm">
                   Academic Demo
                 </span>
                 <span className="px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-xs font-semibold text-indigo-700">
                   Binary Classification
                 </span>
-             </motion.div>
+             </div>
 
-             <motion.h1 variants={itemVariants} className="text-5xl md:text-6xl font-bold tracking-tight text-slate-900 leading-[1.1]">
+             <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-slate-900 leading-[1.1]">
                 Loan Eligibility <br />
                 <span className="text-slate-500">Prediction Model</span>
-             </motion.h1>
+             </h1>
 
-             <motion.p variants={itemVariants} className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-lg">
+             <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-lg">
                 A transparent simulation of how financial institutions leverage machine learning to automate risk assessment and loan approvals.
-             </motion.p>
+             </p>
 
-             <motion.div variants={itemVariants} className="flex flex-wrap gap-4 pt-2">
+             <div className="flex flex-wrap gap-4 pt-2">
                 <Button size="lg" onClick={onStart} className="h-14 px-8 text-lg rounded-full shadow-lg shadow-slate-200 hover:shadow-xl transition-all">
                    Test Eligibility
                 </Button>
                 <Button size="lg" variant="ghost" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })} className="h-14 px-8 text-lg rounded-full">
                    How it works
                 </Button>
-             </motion.div>
-          </motion.div>
+             </div>
+          </div>
 
           {/* Right: Custom Illustration - Decision Pipeline */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative hidden lg:flex h-[500px] w-full items-center justify-center"
-          >
+          <div className="relative hidden lg:flex h-[500px] w-full items-center justify-center">
              <div className="relative w-full h-full bg-white rounded-3xl border border-slate-200 shadow-2xl overflow-hidden p-8 flex flex-col justify-between">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-slate-200" />
                 
@@ -110,13 +83,8 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
                             <span className="text-xs font-semibold text-indigo-900">Inference Engine</span>
                             <span className="text-[10px] text-indigo-400">v2.1</span>
                          </div>
-                         <div className="h-1.5 w-full bg-indigo-100 rounded-full overflow-hidden">
-                            <motion.div 
-                              initial={{ width: "0%" }}
-                              animate={{ width: "100%" }}
-                              transition={{ duration: 2, repeat: Infinity }}
-                              className="h-full bg-indigo-500"
-                            />
+                         <div className="h-1.5 w-full bg-indigo-100 rounded-full overflow-hidden relative">
+                            <div className="h-full bg-indigo-500 w-full animate-shimmer" style={{ backgroundSize: "200% 100%" }} />
                          </div>
                       </div>
                    </div>
@@ -149,20 +117,16 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
              </div>
              
              {/* Floating decorative elements */}
-             <motion.div 
-               animate={{ y: [0, -10, 0] }}
-               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-               className="absolute -right-8 top-20 bg-white p-4 rounded-xl shadow-xl border border-slate-100 max-w-[150px]"
-             >
+             <div className="absolute -right-8 top-20 bg-white p-4 rounded-xl shadow-xl border border-slate-100 max-w-[150px]">
                 <div className="flex items-center space-x-2 mb-2">
                    <GitGraph className="h-4 w-4 text-slate-400" />
                    <span className="text-xs font-bold text-slate-700">Decision Tree</span>
                 </div>
                 <div className="h-1 w-full bg-slate-100 rounded-full mb-1" />
                 <div className="h-1 w-2/3 bg-slate-100 rounded-full" />
-             </motion.div>
+             </div>
 
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -194,10 +158,9 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
                    desc: "A binary output (Yes/No) is derived from a continuous confidence score, mirroring real-world banking cutoffs."
                  }
                ].map((card, i) => (
-                 <motion.div 
+                 <div 
                    key={i}
-                   whileHover={{ y: -5 }}
-                   className="group p-8 bg-slate-50 rounded-2xl border border-slate-100 hover:border-indigo-100 hover:shadow-lg transition-all"
+                   className="group p-8 bg-slate-50 rounded-2xl border border-slate-100 hover:border-indigo-100 hover:shadow-lg transition-all transform hover:-translate-y-1"
                  >
                     <div className="h-12 w-12 bg-white rounded-xl border border-slate-200 flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:border-indigo-600 transition-colors">
                        <card.icon className="h-6 w-6 text-slate-700 group-hover:text-white transition-colors" />
@@ -206,7 +169,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
                     <p className="text-slate-500 leading-relaxed">
                        {card.desc}
                     </p>
-                 </motion.div>
+                 </div>
                ))}
             </div>
          </div>

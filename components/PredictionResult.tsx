@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, CardContent, CardHeader } from './ui/Card';
 import { Badge } from './ui/Badge';
 import { PredictionResult } from '../types';
-import { motion } from 'framer-motion';
 import { CheckCircle2, XCircle, BrainCircuit, Activity } from 'lucide-react';
 import { cn } from '../utils';
 
@@ -57,12 +56,7 @@ export const PredictionResultView: React.FC<PredictionResultProps> = ({ result, 
   const isEligible = result.prediction === "Eligible";
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.98 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      className="h-full"
-    >
+    <div className="h-full transition-all duration-500 ease-out animate-in fade-in slide-in-from-bottom-4">
       <Card className={cn(
         "h-full border-l-4 overflow-hidden relative shadow-lg",
         isEligible ? "border-l-emerald-500 bg-emerald-50/50" : "border-l-rose-500 bg-rose-50/50"
@@ -103,12 +97,10 @@ export const PredictionResultView: React.FC<PredictionResultProps> = ({ result, 
               <span className="text-slate-900 font-bold">{Math.round(result.confidence * 100)}%</span>
             </div>
             <div className="h-3 w-full overflow-hidden rounded-full bg-slate-200/60">
-              <motion.div 
-                initial={{ width: 0 }}
-                animate={{ width: `${result.confidence * 100}%` }}
-                transition={{ duration: 1.2, ease: "circOut" }}
+              <div 
+                style={{ width: `${result.confidence * 100}%` }}
                 className={cn(
-                  "h-full rounded-full transition-all shadow-sm",
+                  "h-full rounded-full transition-all duration-1000 ease-out shadow-sm",
                   isEligible ? "bg-emerald-500" : "bg-rose-500"
                 )} 
               />
@@ -119,19 +111,17 @@ export const PredictionResultView: React.FC<PredictionResultProps> = ({ result, 
             <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider border-b border-slate-200 pb-2">Determinants</h4>
             <div className="grid gap-3">
               {result.reasons.map((reason, idx) => (
-                <motion.div 
+                <div 
                   key={idx}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 + (idx * 0.1) }}
-                  className="flex items-start gap-3 rounded-lg bg-white p-3 shadow-sm border border-slate-100"
+                  className="flex items-start gap-3 rounded-lg bg-white p-3 shadow-sm border border-slate-100 animate-in fade-in slide-in-from-right-4"
+                  style={{ animationDelay: `${idx * 150}ms`, animationFillMode: 'both' }}
                 >
                   <div className={cn(
                     "mt-1.5 h-2 w-2 shrink-0 rounded-full",
                     isEligible ? "bg-emerald-400" : "bg-rose-400"
                   )} />
                   <p className="text-sm text-slate-600 leading-relaxed font-medium">{reason}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -146,6 +136,6 @@ export const PredictionResultView: React.FC<PredictionResultProps> = ({ result, 
           </div>
         </CardContent>
       </Card>
-    </motion.div>
+    </div>
   );
 };
